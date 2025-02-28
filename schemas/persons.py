@@ -1,6 +1,7 @@
 from typing import List, Union,Literal
 from pydantic import BaseModel
 from datetime import datetime, date
+from typing import Optional
 import models.persons
 class PersonBase(BaseModel):
     Titulo_Cortesia: str
@@ -11,7 +12,7 @@ class PersonBase(BaseModel):
     Correo_Electronico: str 
     Telefono: str  
     Fecha_Nacimiento: date
-    Fotografia: str
+    Fotografia: Optional[str] = None 
     Genero: str#List[Literal["Masculino", "Femenino", "Otro"]]
     Tipo_Sangre: str
     Estatus: bool
@@ -27,6 +28,6 @@ class PersonUpdate(PersonBase):
 class Person(PersonBase):
     ID: int
     class Config:
-        orm_mode = True
+        from_attributes = True 
 
 

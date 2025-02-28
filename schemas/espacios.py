@@ -1,26 +1,31 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, constr
 from typing import Optional
 import datetime
 
 class EspacioBase(BaseModel):
-    Tipo: str
-    Nombre: str
-    Departamento_ID: int
-    Estatus: str
-    Capacidad: Optional[int] = None
-    Espacio_superior_ID: Optional[int] = None
-    tbc_espacioscol: Optional[str] = None
+    tipo: constr(max_length=50)
+    nombre: constr(max_length=100)
+    departamento_id: int
+    estatus: constr(max_length=20)
+    capacidad: Optional[int] = None
+    espacio_superior_id: Optional[int] = None
 
 class EspacioCreate(EspacioBase):
     pass
 
-class EspacioUpdate(EspacioBase):
-    pass
+class EspacioUpdate(BaseModel):
+    tipo: Optional[constr(max_length=50)] = None
+    nombre: Optional[constr(max_length=100)] = None
+    departamento_id: Optional[int] = None
+    estatus: Optional[constr(max_length=20)] = None
+    capacidad: Optional[int] = None
+    espacio_superior_id: Optional[int] = None
+    fecha_actualizacion: datetime.datetime = datetime.datetime.utcnow()
 
 class Espacio(EspacioBase):
-    ID: int
-    Fecha_Registro: Optional[datetime.datetime] = None
-    Fecha_Actualizacion: Optional[datetime.datetime] = None
+    id: int
+    fecha_registro: Optional[datetime.datetime] = None
+    fecha_actualizacion: Optional[datetime.datetime] = None
 
     class Config:
         orm_mode = True

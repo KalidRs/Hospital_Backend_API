@@ -31,7 +31,7 @@ def read_puesto_departamento(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Puesto departamento no encontrado")
     return db_puesto_departamento
 
-@puesto_departamento.post("/puestos_departamentos/", response_model=schemas.PuestoDepartamento, tags=["Puestos Departamentos"], dependencies=[Depends(Portador())])
+@puesto_departamento.post("/puestos_departamentos/", response_model=schemas.PuestoDepartamento, tags=["Puestos Departamentos"])
 def create_puesto_departamento(puesto_departamento: schemas.PuestoDepartamentoCreate, db: Session = Depends(get_db)):
     return crud_puestos_departamentos.create_puesto_departamento(db, puesto_departamento)
 

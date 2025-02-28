@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Enum, DateTime
 from config.db import Base
 import enum
+import datetime
 
 class TipoEspacioEnum(str, enum.Enum):
     Consultorio = 'Consultorio'
@@ -27,7 +28,7 @@ class TipoEspacioEnum(str, enum.Enum):
 class EstatusEnum(str, enum.Enum):
     Activo = 'Activo'
     Inactivo = 'Inactivo'
-    En_remodelación = 'En remodelación'
+    En_remodelacion = 'En remodelación'
     Clausurado = 'Clausurado'
     Reubicado = 'Reubicado'
     Temporal = 'Temporal'
@@ -35,13 +36,17 @@ class EstatusEnum(str, enum.Enum):
 class Espacio(Base):
     __tablename__ = 'tbc_espacios'
 
-    ID = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    Tipo = Column(Enum(TipoEspacioEnum), nullable=False)
-    Nombre = Column(String(100), nullable=False)
-    Departamento_ID = Column(Integer, nullable=False)
-    Estatus = Column(Enum(EstatusEnum), nullable=False)
-    Fecha_Registro = Column(DateTime, nullable=True)
-    Fecha_Actualizacion = Column(DateTime, nullable=True)
-    Capacidad = Column(Integer, nullable=True)
-    Espacio_superior_ID = Column(Integer, nullable=True)
-    tbc_espacioscol = Column(String(45), nullable=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    tipo = Column(Enum(TipoEspacioEnum), nullable=False)
+    nombre = Column(String(100), nullable=False)
+
+    # 🔹 Se mantiene el campo, pero sin relación con `tbc_departamentos`
+    departamento_id = Column(Integer, nullable=True, index=True)
+
+    estatus = Column(Enum(EstatusEnum), nullable=False)
+    fecha_registro = Column(DateTime, default=datetime.datetime.utcnow)
+    fecha_actualizacion = Column(DateTime, nullable=True, onupdate=datetime.datetime.utcnow)
+    capacidad = Column(Integer, nullable=True)
+
+    # 🔹 Se mantiene el campo, pero sin relación con `tbc_espacios`
+    espacio_superior_id = Column(Integer, nullable=True)

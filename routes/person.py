@@ -25,7 +25,7 @@ def read_persons(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     db_persons= crud.persons.get_persons(db=db, skip=skip, limit=limit)
     return db_persons
 
-@person.post("/person/{id}", response_model=schemas.persons.Person, tags=["Personas"], dependencies=[Depends(Portador())])
+@person.post("/person/{id}", response_model=schemas.persons.Person, tags=["Personas"])
 def read_user(id: int, db: Session = Depends(get_db)):
     db_person= crud.persons.get_person(db=db, id=id)
     if db_person is None:

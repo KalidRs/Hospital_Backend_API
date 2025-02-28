@@ -1,28 +1,29 @@
-from typing import List,Union
-from pydantic import BaseModel, Field
+from typing import Optional
+from pydantic import BaseModel
 from datetime import datetime
-from decimal import Decimal
 
+class DepartamentoBase(BaseModel):
+    Nombre: str
+    AreaMedica_ID: Optional[int] = None
+    DepartamentoSuperior_ID: Optional[int] = None
+    Responsable_ID: Optional[int] = None
+    Estatus: Optional[bool] = True
+    Fecha_Registro: Optional[datetime] = None
+    Fecha_Actualizacion: Optional[datetime] = None
 
-class DepartamentosBase(BaseModel):
+class DepartamentoCreate(DepartamentoBase):
+    pass  # Se usa la misma estructura de DepartamentoBase
+
+class DepartamentoUpdate(BaseModel):
+    Nombre: Optional[str] = None
+    AreaMedica_ID: Optional[int] = None
+    DepartamentoSuperior_ID: Optional[int] = None
+    Responsable_ID: Optional[int] = None
+    Estatus: Optional[bool] = None
+    Fecha_Actualizacion: Optional[datetime] = None
+
+class Departamento(DepartamentoBase):
     ID: int
-    Nombre : str
-    AreaMedica_ID: int
-    DepartamentoSuperior_ID: int
-    Responsable_ID: int
-    Especialidad: str
-    Fecha_Registro: datetime
-    Fecha_Actualiacion: datetime
 
-
-    
-    
-class PersonalMedicoCreate(DepartamentosBase):
-    pass
-class PersonalMedicoUpdate(DepartamentosBase):
-    pass
-class PersonalMedico(DepartamentosBase):
-    AreaMedica_ID: int
-    DepartamentoSuperior_ID: int
     class Config:
         orm_mode = True
