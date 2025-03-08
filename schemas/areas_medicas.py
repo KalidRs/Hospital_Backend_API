@@ -10,8 +10,8 @@ class EstatusEnum(str, Enum):
 class AreaMedicaBase(BaseModel):
     Nombre: str
     Descripcion: Optional[str] = None
-    Estatus: EstatusEnum
-    Fecha_Registro: datetime
+    Estatus: EstatusEnum = EstatusEnum.Activo
+    Fecha_Registro: Optional[datetime] = None
     Fecha_Actualizacion: Optional[datetime] = None
 
 class AreaMedicaCreate(AreaMedicaBase):
@@ -21,7 +21,7 @@ class AreaMedicaUpdate(AreaMedicaBase):
     pass
 
 class AreaMedica(AreaMedicaBase):
-    ID: int
+    ID: str  
 
     class Config:
-        orm_mode = True
+        from_attributes = True

@@ -1,4 +1,4 @@
-from pydantic import BaseModel, constr
+from pydantic import BaseModel, constr, Field
 from typing import Optional
 import datetime
 
@@ -20,7 +20,7 @@ class EspacioUpdate(BaseModel):
     estatus: Optional[constr(max_length=20)] = None
     capacidad: Optional[int] = None
     espacio_superior_id: Optional[int] = None
-    fecha_actualizacion: datetime.datetime = datetime.datetime.utcnow()
+    fecha_actualizacion: datetime.datetime = Field(default_factory=datetime.datetime.utcnow) 
 
 class Espacio(EspacioBase):
     id: int
@@ -28,4 +28,4 @@ class Espacio(EspacioBase):
     fecha_actualizacion: Optional[datetime.datetime] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True  

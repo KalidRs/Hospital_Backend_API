@@ -16,8 +16,8 @@ class PersonBase(BaseModel):
     Genero: str#List[Literal["Masculino", "Femenino", "Otro"]]
     Tipo_Sangre: str
     Estatus: bool
-    Fecha_Registro: datetime
-    Fecha_Actualizacion: datetime
+    Fecha_Registro: Optional[datetime] = None  # ✅ Ahora es opcional
+    Fecha_Actualizacion: Optional[datetime] = None
 
 class PersonCreate(PersonBase):
     pass

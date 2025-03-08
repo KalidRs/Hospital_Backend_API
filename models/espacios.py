@@ -29,9 +29,6 @@ class EstatusEnum(str, enum.Enum):
     Activo = 'Activo'
     Inactivo = 'Inactivo'
     En_remodelacion = 'En remodelación'
-    Clausurado = 'Clausurado'
-    Reubicado = 'Reubicado'
-    Temporal = 'Temporal'
 
 class Espacio(Base):
     __tablename__ = 'tbc_espacios'
@@ -40,7 +37,6 @@ class Espacio(Base):
     tipo = Column(Enum(TipoEspacioEnum), nullable=False)
     nombre = Column(String(100), nullable=False)
 
-    # 🔹 Se mantiene el campo, pero sin relación con `tbc_departamentos`
     departamento_id = Column(Integer, nullable=True, index=True)
 
     estatus = Column(Enum(EstatusEnum), nullable=False)
@@ -48,5 +44,4 @@ class Espacio(Base):
     fecha_actualizacion = Column(DateTime, nullable=True, onupdate=datetime.datetime.utcnow)
     capacidad = Column(Integer, nullable=True)
 
-    # 🔹 Se mantiene el campo, pero sin relación con `tbc_espacios`
     espacio_superior_id = Column(Integer, nullable=True)
