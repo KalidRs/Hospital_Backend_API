@@ -1,46 +1,37 @@
 from typing import Optional
 from pydantic import BaseModel
 from datetime import datetime
-import enum
-
-class EstatusEnum(str, enum.Enum):
-    Activo = "Activo"
-    Inactivo = "Inactivo"
-    En_Revisión = "En Revisión"
 
 class ConsumibleBase(BaseModel):
-    Nombre: str
-    Descripcion: Optional[str] = None
-    Cantidad: int
-    Tipo: str
-    Departamento_ID: int
-    Estatus: EstatusEnum = EstatusEnum.Activo
-    Fecha_Registro: Optional[datetime] = None
-    Fecha_Actualizacion: Optional[datetime] = None
-    Observaciones: Optional[str] = None
-    Espacio_Medico: str
+    nombre: str
+    descripcion: str
+    tipo: str
+    departamento: str
+    cantidad_existencia: int
+    detalle: Optional[str] = None
+    estatus: Optional[bool] = None
+    observaciones: Optional[str] = None
+    espacio_medico: Optional[str] = None
+    fecha_registro: Optional[datetime] = None  #
+    fecha_actualizacion: Optional[datetime] = None 
 
 class ConsumibleCreate(ConsumibleBase):
     pass
 
 class ConsumibleUpdate(BaseModel):
-    Nombre: Optional[str] = None
-    Descripcion: Optional[str] = None
-    Cantidad: Optional[int] = None
-    Tipo: Optional[str] = None
-    Departamento_ID: Optional[int] = None
-    Estatus: Optional[EstatusEnum] = None
-    Fecha_Registro: Optional[datetime] = None
-    Fecha_Actualizacion: Optional[datetime] = None
-    Observaciones: Optional[str] = None
-    Espacio_Medico: Optional[str] = None
-
+    nombre: Optional[str] = None
+    descripcion: Optional[str] = None
+    tipo: Optional[str] = None
+    departamento: Optional[str] = None
+    cantidad_existencia: Optional[int] = None
+    detalle: Optional[str] = None
+    estatus: Optional[bool] = None
+    observaciones: Optional[str] = None
+    espacio_medico: Optional[str] = None
+    fecha_actualizacion: Optional[datetime] = None  
 
 class Consumible(ConsumibleBase):
-    ID: int
+    id: int
 
     class Config:
         orm_mode = True
-
-
-
