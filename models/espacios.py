@@ -28,7 +28,6 @@ class TipoEspacioEnum(str, enum.Enum):
 class EstatusEnum(str, enum.Enum):
     Activo = 'Activo'
     Inactivo = 'Inactivo'
-    En_remodelacion = 'En remodelación'
 
 class Espacio(Base):
     __tablename__ = 'tbc_espacios'

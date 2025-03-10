@@ -1,5 +1,4 @@
-from sqlalchemy import Column, Integer, String, Enum, Text, DateTime
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean
 from sqlalchemy.sql import func
 from config.db import Base
 import enum
@@ -12,15 +11,20 @@ class EstatusEnum(enum.Enum):
 class Consumible(Base):
     __tablename__ = "tbc_consumibles"
     
-    ID = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    Nombre = Column(String(255), nullable=False)
-    Descripcion = Column(Text, nullable=True)
-    Cantidad = Column(Integer, nullable=False)
-    Tipo = Column(String(50), nullable=False)
-    Departamento_ID = Column(Integer, nullable=False)
-    Estatus = Column(Enum(EstatusEnum), default=EstatusEnum.Activo, nullable=False)
-    Fecha_Registro = Column(DateTime, nullable=True, default=func.now())
-    Fecha_Actualizacion = Column(DateTime, nullable=True, default=func.now(), onupdate=func.now())
-    Observaciones = Column(Text, nullable=True)
-    Espacio_Medico = Column(String(50), nullable=False)
-
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    nombre = Column(String(100), nullable=False)
+    descripcion = Column(Text, nullable=False)
+    tipo = Column(String(50), nullable=False)
+    departamento = Column(String(50), nullable=False)
+    cantidad_existencia = Column(Integer, nullable=False)
+    detalle = Column(Text, nullable=True)
+    
+    # ✅ Se genera automáticamente al crear un registro
+    fecha_registro = Column(DateTime, nullable=False, server_default=func.now())  
+    
+    # ✅ Se actualiza automáticamente cuando hay cambios
+    fecha_actualizacion = Column(DateTime, nullable=True, onupdate=func.now())  
+    
+    estatus = Column(Boolean, nullable=True)
+    observaciones = Column(Text, nullable=True)
+    espacio_medico = Column(String(50), nullable=True)
