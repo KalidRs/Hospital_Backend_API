@@ -21,14 +21,6 @@ def read_all_personal_medico(skip: int = 0, limit: int = 10, db: Session = Depen
     return db_personal_medico
 
 
-@personal_medico.post("/personal_medico/", response_model=schemas.personal_medico.PersonalMedico, tags=["Personal Médico"], dependencies=[Depends(Portador)])
-def create_personal_medico(personalMedico: schemas.personal_medico.PersonalMedicoCreate, db: Session = Depends(get_db)):
-    db_personal_medico = crud.personal_medico.get_personalMedico_by_ID(db, Persona_ID=personalMedico.Persona_ID)
-    if db_personal_medico:
-        raise HTTPException(status_code=400, detail="Personal existente intenta nuevamente")
-    return crud.personal_medico.create_personal_medico(db=db, personalMedico=personalMedico)
-
-
 @personal_medico.post("/personal_medico/", response_model=schemas.personal_medico.PersonalMedico, tags=["Personal Médico"])
 def create_personal_medico(personalMedico: schemas.personal_medico.PersonalMedicoCreate, db: Session = Depends(get_db)):
     db_personal_medico = crud.personal_medico.get_personalMedico_by_ID(db, Persona_ID = personalMedico.Persona_ID)

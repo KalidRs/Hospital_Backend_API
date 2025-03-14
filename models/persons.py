@@ -23,8 +23,8 @@ class Person(Base):
     __tablename__ = "tbb_personas"
 
     ID = Column(Integer, primary_key=True, index=True)
-    # ✅ Agregar la relación inversa con User
-    usuario = relationship("User", back_populates="persona", uselist=False) 
+    usuario = relationship("User", back_populates="persona", uselist=False)  # 🔹 ¡NO importar `User` aquí!
+
     Titulo_Cortesia = Column(String(20))
     Nombre = Column(String(80), nullable=False)
     Primer_Apellido = Column(String(80), nullable=False)
@@ -38,8 +38,5 @@ class Person(Base):
     Tipo_Sangre = Column(Enum(MySangre), nullable=False)
     Estatus = Column(Boolean, default=False, nullable=False)
 
-    # ✅ Se genera automáticamente cuando se crea un registro
     Fecha_Registro = Column(DateTime, nullable=False, server_default=text('CURRENT_TIMESTAMP'))
-
-    # ✅ Se actualiza automáticamente solo cuando hay cambios
     Fecha_Actualizacion = Column(DateTime, nullable=True, onupdate=datetime.utcnow)

@@ -1,7 +1,10 @@
+from config.db import Base  # 🔹 Importar Base correctamente
 from sqlalchemy import Column, Integer, String, Enum, DateTime
-from config.db import Base
+from sqlalchemy.orm import relationship
+from models.servicios_medicos_espacios import ServiciosMedicosEspacios
 import enum
 import datetime
+from models.servicios_medicos_espacios import ServiciosMedicosEspacios 
 
 class TipoEspacioEnum(str, enum.Enum):
     Consultorio = 'Consultorio'
@@ -44,3 +47,6 @@ class Espacio(Base):
     capacidad = Column(Integer, nullable=True)
 
     espacio_superior_id = Column(Integer, nullable=True)
+
+    # 🔹 Agregar la relación con ServiciosMedicosEspacios
+    servicios_medicos = relationship("ServiciosMedicosEspacios", back_populates="espacio")
