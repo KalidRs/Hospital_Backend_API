@@ -1,5 +1,4 @@
 # Ignorar entornos virtuales
-EntornoV-API/
 venvLinux/
 venv/
 
@@ -36,4 +35,3 @@ Thumbs.db
 node_modules/
 package-lock.json
 yarn.lock
-config/db.py
