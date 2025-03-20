@@ -7,8 +7,6 @@ class Departamentos(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     nombre = Column(String(100), nullable=False)
-
-    # 🔹 Se mantienen los campos, pero sin relaciones
     area_medica_id = Column(Integer, nullable=True)
     departamento_superior_id = Column(Integer, nullable=True)
     responsable_id = Column(Integer, nullable=True)

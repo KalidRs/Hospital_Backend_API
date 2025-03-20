@@ -1,16 +1,19 @@
-from config.db import Base  # 🔹 Importar Base para definir la clase correctamente
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, Text, DateTime, func
 from sqlalchemy.orm import relationship
-from models.servicios_medicos_espacios import ServiciosMedicosEspacios  
+from config.db import Base
 
 class ServiceM(Base):
     __tablename__ = "tbc_servicios_medicos"
 
-    ID = Column(Integer, primary_key=True, index=True)
-    Nombre = Column(String(255))
-    Descripcion = Column(String(250))
-    Observaciones = Column(String(250))
-    Fecha_Registro = Column(DateTime)
-    Fecha_Actualizacion = Column(DateTime)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    nombre = Column(String(100), nullable=False, unique=True)
+    descripcion = Column(Text, nullable=True)
+    observaciones = Column(Text, nullable=True)
+    fecha_registro = Column(DateTime, nullable=False, server_default=func.now())
+    fecha_actualizacion = Column(DateTime, nullable=True, onupdate=func.now())
 
-    espacios = relationship("ServiciosMedicosEspacios", back_populates="servicio")
+    # 🔹 Relación con Servicios Médicos Consumibles
+    consumibles = relationship("ServiciosMedicosConsumibles", back_populates="servicio")
+
+    # 🔹 Relación con Servicios Médicos Espacios (⚠️ POSIBLE ERROR AQUÍ)
+    espacios = relationship("ServiciosMedicosEspacios", back_populates="servicio")  # ⚠️ Asegurar que "servicio" existe en ServiciosMedicosEspacios

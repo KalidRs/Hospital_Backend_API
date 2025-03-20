@@ -1,5 +1,6 @@
 # Ignorar entornos virtuales
 EntornoV-API/
+/EntornoV-API
 venvLinux/
 venv/
 

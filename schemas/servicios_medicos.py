@@ -1,21 +1,23 @@
-from typing import List,Union
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
+from typing import Optional
 
 class ServiceMBase(BaseModel):
-    Nombre: str
-    Descripcion: str
-    Observaciones: str
-    Fecha_Registro:datetime
-    Fecha_Actualizacion:datetime
+    nombre: str
+    descripcion: Optional[str] = None
+    observaciones: Optional[str] = None
+    fecha_registro: Optional[datetime] = None
+    fecha_actualizacion: Optional[datetime] = None
 
-    
 class ServiceMCreate(ServiceMBase):
     pass
-class ServiCeMUpdate(ServiceMBase):
-    pass
-class Service(ServiceMBase):
-    ID: int
 
-    class Config:
-        from_attributes = True
+class ServiceMUpdate(BaseModel):  
+    nombre: Optional[str] = None
+    descripcion: Optional[str] = None
+    observaciones: Optional[str] = None
+    fecha_actualizacion: Optional[datetime] = None
+
+class Service(ServiceMBase):
+    id: int
+    model_config = ConfigDict(from_attributes=True)

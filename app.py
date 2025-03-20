@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # 🔹 Importar configuración de la BD
 from config.db import Base, engine
-import models  # 🔹 Importar todos los modelos desde __init__.py
+import models  # 🔹 Importa todos los modelos desde __init__.py
 
 # 🔹 INICIALIZAR FASTAPI
 app = FastAPI(
@@ -15,7 +15,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=["http://localhost:8080"], 
+    allow_origins=["http://localhost:8080"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -47,14 +47,15 @@ from routes.solicitudes import request
 from routes.tbb_aprobaciones import tbb_aprobaciones
 from routes.tbc_organos import tbc_organos
 from routes.servicios_medicos import serviceM
-from routes.servicios_medicos_espacios import router as servicios_espacios_router 
+from routes.servicios_medicos_espacios import router as servicios_espacios_router
+from routes.servicios_medicos_consumibles import servicios_medicos_consumibles  # 🔹 Cambio de nombre para mantener consistencia
 
 # 🔹 INCLUIR LAS RUTAS
 app.include_router(user)
 app.include_router(person)
 app.include_router(serviceM)
-app.include_router(servicios_espacios_router)  
-app.include_router(rol)  # 🔹 Ya corregido
+app.include_router(servicios_espacios_router)
+app.include_router(rol)
 app.include_router(userrol)
 app.include_router(receta)
 app.include_router(cita)
@@ -77,6 +78,7 @@ app.include_router(puesto_departamento)
 app.include_router(request)
 app.include_router(tbb_aprobaciones)
 app.include_router(tbc_organos)
+app.include_router(servicios_medicos_consumibles)  # 🔹 Cambio de nombre aquí también
 
 # 🔹 CREAR LAS TABLAS **DESPUÉS DE REGISTRAR LAS RUTAS**
 print("🔄 Creando las tablas en MySQL si no existen...")

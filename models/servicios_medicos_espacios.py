@@ -4,13 +4,12 @@ from config.db import Base
 import enum
 import datetime
 
-# Enumeración para el estatus de aprobación
+# Enumeraciones
 class EstatusAprobacionEnum(str, enum.Enum):
     Pendiente = 'Pendiente'
     Aprobado = 'Aprobado'
     Rechazado = 'Rechazado'
 
-# Enumeración para el estatus general
 class EstatusEnum(str, enum.Enum):
     Activo = 'Activo'
     Inactivo = 'Inactivo'
@@ -19,7 +18,7 @@ class ServiciosMedicosEspacios(Base):
     __tablename__ = 'tbc_servicios_medicos_espacios'
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    fk_servicio = Column(Integer, ForeignKey("tbc_servicios_medicos.ID", ondelete="CASCADE"), nullable=False, index=True)
+    fk_servicio = Column(Integer, ForeignKey("tbc_servicios_medicos.id", ondelete="CASCADE"), nullable=False, index=True)  # ⚠️ Corregido ForeignKey
     fk_espacio = Column(Integer, ForeignKey("tbc_espacios.id"), nullable=False, index=True)
     observaciones = Column(String(255), nullable=True)
     estatus_aprobacion = Column(Enum(EstatusAprobacionEnum), nullable=False, default=EstatusAprobacionEnum.Pendiente)
@@ -29,6 +28,8 @@ class ServiciosMedicosEspacios(Base):
     fecha_termino = Column(DateTime, nullable=True)
     fecha_ultima_actualizacion = Column(DateTime, nullable=True, onupdate=datetime.datetime.utcnow)
 
-    # Relaciones opcionales (si necesitas cargar datos relacionados)
-    servicio = relationship("ServiceM", back_populates="espacios")
-    espacio = relationship("Espacio", back_populates="servicios_medicos")
+    # 🔹 Relación con Servicios Médicos
+    servicio = relationship("ServiceM", back_populates="espacios")  # ⚠️ Asegurar que coincide con "espacios" en ServiceM
+
+    # 🔹 Relación con Espacio
+    espacio = relationship("Espacio", back_populates="servicios_medicos_espacios")

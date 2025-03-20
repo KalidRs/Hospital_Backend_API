@@ -3,27 +3,27 @@ from pydantic import BaseModel
 from datetime import datetime
 
 class DepartamentoBase(BaseModel):
-    Nombre: str
-    AreaMedica_ID: Optional[int] = None
-    DepartamentoSuperior_ID: Optional[int] = None
-    Responsable_ID: Optional[int] = None
-    Estatus: Optional[bool] = True
-    Fecha_Registro: Optional[datetime] = None
-    Fecha_Actualizacion: Optional[datetime] = None
+    nombre: str
+    area_medica_id: Optional[int] = None
+    departamento_superior_id: Optional[int] = None
+    responsable_id: Optional[int] = None
+    estatus: Optional[bool] = True
+    fecha_registro: Optional[datetime] = None
+    fecha_actualizacion: Optional[datetime] = None
 
 class DepartamentoCreate(DepartamentoBase):
     pass  # Se usa la misma estructura de DepartamentoBase
 
 class DepartamentoUpdate(BaseModel):
-    Nombre: Optional[str] = None
-    AreaMedica_ID: Optional[int] = None
-    DepartamentoSuperior_ID: Optional[int] = None
-    Responsable_ID: Optional[int] = None
-    Estatus: Optional[bool] = None
-    Fecha_Actualizacion: Optional[datetime] = None
+    nombre: Optional[str] = None
+    area_medica_id: Optional[int] = None
+    departamento_superior_id: Optional[int] = None
+    responsable_id: Optional[int] = None
+    estatus: Optional[bool] = None
+    fecha_actualizacion: Optional[datetime] = None
 
 class Departamento(DepartamentoBase):
-    ID: int
+    id: int
 
     class Config:
         orm_mode = True
