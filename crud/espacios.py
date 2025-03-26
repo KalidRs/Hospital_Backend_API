@@ -1,15 +1,52 @@
+"""Módulo CRUD para operaciones relacionadas con espacios físicos."""
+
+from datetime import datetime
 from sqlalchemy.orm import Session
 import models.espacios as models
 import schemas.espacios as schemas
-from datetime import datetime
 
 def get_espacio(db: Session, espacio_id: int):
-    return db.query(models.Espacio).filter(models.Espacio.id == espacio_id).first()
+    """
+    Retorna un espacio según su ID.
+
+    Args:
+        db (Session): Sesión de base de datos.
+        espacio_id (int): ID del espacio.
+
+    Returns:
+        Espacio: Instancia encontrada o None.
+    """
+    return db.query(models.Espacio).filter(
+        models.Espacio.id == espacio_id
+    ).first()
+
 
 def get_espacios(db: Session, skip: int = 0, limit: int = 10):
+    """
+    Retorna una lista de espacios con paginación.
+
+    Args:
+        db (Session): Sesión de base de datos.
+        skip (int): Registros a omitir.
+        limit (int): Número máximo de registros.
+
+    Returns:
+        List[Espacio]: Lista de espacios.
+    """
     return db.query(models.Espacio).offset(skip).limit(limit).all()
 
+
 def create_espacio(db: Session, espacio: schemas.EspacioCreate):
+    """
+    Crea y registra un nuevo espacio en la base de datos.
+
+    Args:
+        db (Session): Sesión de base de datos.
+        espacio (EspacioCreate): Datos del nuevo espacio.
+
+    Returns:
+        Espacio: Instancia creada.
+    """
     db_espacio = models.Espacio(
         tipo=espacio.tipo,
         nombre=espacio.nombre,
@@ -28,8 +65,22 @@ def create_espacio(db: Session, espacio: schemas.EspacioCreate):
         raise e
     return db_espacio
 
+
 def update_espacio(db: Session, espacio_id: int, espacio: schemas.EspacioUpdate):
-    db_espacio = db.query(models.Espacio).filter(models.Espacio.id == espacio_id).first()
+    """
+    Actualiza los campos de un espacio existente.
+
+    Args:
+        db (Session): Sesión de base de datos.
+        espacio_id (int): ID del espacio a modificar.
+        espacio (EspacioUpdate): Datos a actualizar.
+
+    Returns:
+        Espacio: Instancia actualizada o None si no se encontró.
+    """
+    db_espacio = db.query(models.Espacio).filter(
+        models.Espacio.id == espacio_id
+    ).first()
     if db_espacio:
         for var, value in espacio.dict(exclude_unset=True).items():
             if value is not None:
@@ -43,8 +94,21 @@ def update_espacio(db: Session, espacio_id: int, espacio: schemas.EspacioUpdate)
             raise e
     return db_espacio
 
+
 def delete_espacio(db: Session, espacio_id: int):
-    db_espacio = db.query(models.Espacio).filter(models.Espacio.id == espacio_id).first()
+    """
+    Elimina un espacio de la base de datos si existe.
+
+    Args:
+        db (Session): Sesión de base de datos.
+        espacio_id (int): ID del espacio a eliminar.
+
+    Returns:
+        Espacio: Instancia eliminada o None si no se encontró.
+    """
+    db_espacio = db.query(models.Espacio).filter(
+        models.Espacio.id == espacio_id
+    ).first()
     if db_espacio:
         try:
             db.delete(db_espacio)

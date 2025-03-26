@@ -1,20 +1,42 @@
-from config.db import Base
-from sqlalchemy import Column, Integer, ForeignKey, DateTime, Text
+# pylint: disable=too-few-public-methods
+"""Modelo ORM para representar consumibles usados en un servicio médico específico."""
+
+import uuid
+from sqlalchemy import Column, String, ForeignKey, DateTime, Text, Integer
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+from config.db import Base
 
 class ServiciosMedicosConsumibles(Base):
+    """
+    Representa los consumibles utilizados en un servicio médico específico.
+    """
+
     __tablename__ = "tbd_servicios_medicos_consumibles"
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    id_servicio = Column(Integer, ForeignKey("tbc_servicios_medicos.id", ondelete="CASCADE"), nullable=False)
-    id_consumible = Column(Integer, ForeignKey("tbc_consumibles.id", ondelete="CASCADE"), nullable=False)
+    id = Column(
+        String(36),
+        primary_key=True,
+        index=True,
+        default=lambda: str(uuid.uuid4())
+    )
+    id_servicio = Column(
+        String(36),
+        ForeignKey("tbc_servicios_medicos.id", ondelete="CASCADE"),
+        nullable=False
+    )
+    id_consumible = Column(
+        String(36),
+        ForeignKey("tbc_consumibles.id", ondelete="CASCADE"),
+        nullable=False
+    )
     cantidad_usada = Column(Integer, nullable=False)
-    fecha_uso = Column(DateTime, nullable=False, server_default=func.now())
+    fecha_uso = Column(
+        DateTime,
+        nullable=False,
+        server_default=func.now()  # pylint: disable=not-callable
+    )
     observaciones = Column(Text, nullable=True)
 
-    # 🔹 Relación con `ServiceM`
     servicio = relationship("ServiceM", back_populates="consumibles")
-
-    # 🔹 Relación con `Consumible`
     consumible = relationship("Consumible", back_populates="servicios")
