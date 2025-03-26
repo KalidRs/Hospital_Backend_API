@@ -8,12 +8,11 @@ import models  # 🔹 Importa todos los modelos desde __init__.py
 # 🔹 INICIALIZAR FASTAPI
 app = FastAPI(
     title="HOSPITAL S.A. de C.V.",
-    description="""
-API RESTful para la gestión operativa de un hospital, construida con FastAPI y SQLAlchemy.
-
-"""
+    description=(
+        "API RESTful para la gestión operativa de un hospital, "
+        "construida con FastAPI y SQLAlchemy."
+    ),
 )
-
 
 # 🔹 Configurar CORS
 app.add_middleware(
@@ -35,6 +34,7 @@ from routes.consumibles import consumible
 from routes.areas_medicas import area_medica
 from routes.rol import rol
 from routes.userrol import userrol
+from routes.departamentos import departamentos
 
 # 🔹 IMPORTAR RUTAS DOCUMENTADAS (NO USADAS POR AHORA)
 # from routes.receta import receta
@@ -43,7 +43,6 @@ from routes.userrol import userrol
 # from routes.cirugia import cirugia_router
 # from routes.horarios import horarios
 # from routes.bitacora import bitacora
-from routes.departamentos import departamentos
 # from routes.dispensaciones import dispensacion
 # from routes.estudios import estudios
 # from routes.resultados_estudios import resultados_estudios
@@ -68,7 +67,6 @@ app.include_router(area_medica)
 app.include_router(rol)
 app.include_router(userrol)
 app.include_router(departamentos)
-
 
 # 🔹 CREAR LAS TABLAS **DESPUÉS DE REGISTRAR LAS RUTAS**
 print("🔄 Creando las tablas en MySQL si no existen...")
