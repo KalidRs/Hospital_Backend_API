@@ -11,32 +11,6 @@ app = FastAPI(
     description="""
 API RESTful para la gestión operativa de un hospital, construida con FastAPI y SQLAlchemy.
 
-Actualmente se gestionan las siguientes entidades clave:
-
-🧑‍⚕️ **Usuarios y Personas**  
-- Registro de usuarios del sistema con autenticación mediante JWT  
-- Asociación uno a uno con datos personales (personas)
-
-🔐 **Roles y Asignaciones**  
-- Catálogo de roles disponibles  
-- Relación entre usuarios y roles para control de acceso
-
-🏥 **Servicios Médicos**  
-- Administración de servicios médicos brindados por el hospital  
-- Relación directa con espacios físicos y consumibles asignados
-
-🏢 **Espacios Hospitalarios**  
-- Registro de áreas físicas como consultorios, quirófanos, laboratorios, etc.  
-- Asociación jerárquica y relación con servicios médicos
-
-💊 **Consumibles Médicos**  
-- Gestión de insumos médicos con detalles, cantidad y tipo  
-- Relación directa con los servicios médicos que los utilizan
-
-🩺 **Áreas Médicas**  
-- Registro estructurado de especialidades y divisiones médicas internas
-
-Todas las rutas críticas están protegidas mediante autenticación JWT.
 """
 )
 
