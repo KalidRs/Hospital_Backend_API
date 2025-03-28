@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 import models.consumibles
 import schemas.consumibles
 
+
 def get_consumibles(db: Session, skip: int = 0, limit: int = 10):
     """
     Obtiene una lista paginada de consumibles.
@@ -19,13 +20,13 @@ def get_consumibles(db: Session, skip: int = 0, limit: int = 10):
     return db.query(models.consumibles.Consumible).offset(skip).limit(limit).all()
 
 
-def get_consumible(db: Session, id: int):  # pylint: disable=redefined-builtin
+def get_consumible(db: Session, id: str):  # pylint: disable=redefined-builtin
     """
     Obtiene un consumible por su ID.
 
     Args:
         db (Session): Sesión de base de datos.
-        id (int): Identificador del consumible.
+        id (str): Identificador del consumible (UUID).
 
     Returns:
         Consumible: Instancia encontrada o None.
@@ -70,14 +71,14 @@ def create_consumible(db: Session, consumible: schemas.consumibles.ConsumibleCre
 
 
 def update_consumible(
-    db: Session, id: int, consumible: schemas.consumibles.ConsumibleUpdate
+    db: Session, id: str, consumible: schemas.consumibles.ConsumibleUpdate
 ):  # pylint: disable=redefined-builtin
     """
     Actualiza un consumible existente.
 
     Args:
         db (Session): Sesión de base de datos.
-        id (int): ID del consumible a actualizar.
+        id (str): ID del consumible a actualizar.
         consumible (ConsumibleUpdate): Datos nuevos a aplicar.
 
     Returns:
@@ -94,13 +95,13 @@ def update_consumible(
     return db_consumible
 
 
-def delete_consumible(db: Session, id: int):  # pylint: disable=redefined-builtin
+def delete_consumible(db: Session, id: str):  # pylint: disable=redefined-builtin
     """
     Elimina un consumible por su ID.
 
     Args:
         db (Session): Sesión de base de datos.
-        id (int): ID del consumible a eliminar.
+        id (str): ID del consumible a eliminar.
 
     Returns:
         Consumible: Instancia eliminada o None.

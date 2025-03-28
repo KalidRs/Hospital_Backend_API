@@ -58,7 +58,7 @@ Obtiene los detalles de un consumible específico a partir de su ID.
 - Retorna error 404 si no existe.
 """
 )
-def read_consumible(id: int, db: Session = Depends(get_db)):
+def read_consumible(id: str, db: Session = Depends(get_db)):  # id ahora es str
     """
     Endpoint para obtener un consumible por ID (protegido).
     """
@@ -112,7 +112,7 @@ Actualiza la información de un consumible existente.
 """
 )
 def update_consumible(
-    id: int,
+    id: str,  # id ahora es str
     consumible: schemas.consumibles.ConsumibleUpdate,
     db: Session = Depends(get_db)
 ):
@@ -143,7 +143,7 @@ Elimina un consumible existente por su ID.
 - Retorna error 404 si el consumible no existe.
 """
 )
-def delete_consumible(id: int, db: Session = Depends(get_db)):
+def delete_consumible(id: str, db: Session = Depends(get_db)):  # id ahora es str
     """
     Endpoint para eliminar un consumible por ID (protegido).
     """

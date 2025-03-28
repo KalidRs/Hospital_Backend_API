@@ -5,6 +5,7 @@ from datetime import datetime
 from uuid import UUID
 from typing import Optional
 from pydantic import BaseModel, Field
+from models.consumibles import TipoConsumibleEnum  # importa el Enum desde models
 
 
 class ConsumibleBase(BaseModel):
@@ -12,8 +13,8 @@ class ConsumibleBase(BaseModel):
 
     nombre: str = Field(..., example="Guantes de látex")
     descripcion: str = Field(..., example="Guantes estériles de un solo uso, talla mediana")
-    tipo: str = Field(..., example="Material Quirúrgico")
-    departamento: str = Field(..., example="Cirugía")
+    tipo: TipoConsumibleEnum = Field(..., example="Guantes")
+    departamento_id: str = Field(..., example="3e79d145-397a-4e50-bb74-8c6a88c93fa2")
     cantidad_existencia: int = Field(..., example=150)
     detalle: Optional[str] = Field(None, example="Caja con 100 unidades")
     estatus: Optional[bool] = Field(None, example=True)
@@ -38,8 +39,8 @@ class ConsumibleUpdate(BaseModel):
 
     nombre: Optional[str] = Field(None, example="Guantes de nitrilo")
     descripcion: Optional[str] = Field(None, example="Guantes hipoalergénicos, talla grande")
-    tipo: Optional[str] = Field(None, example="Material Quirúrgico")
-    departamento: Optional[str] = Field(None, example="Urgencias")
+    tipo: Optional[TipoConsumibleEnum] = Field(None, example="Guantes")
+    departamento_id: Optional[str] = Field(None, example="3e79d145-397a-4e50-bb74-8c6a88c93fa2")
     cantidad_existencia: Optional[int] = Field(None, example=200)
     detalle: Optional[str] = Field(None, example="Caja con 50 pares")
     estatus: Optional[bool] = Field(None, example=False)
