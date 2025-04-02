@@ -41,7 +41,7 @@ from routes.departamentos import departamentos
 # from routes.citas import cita
 # from routes.expediente import expediente
 # from routes.cirugia import cirugia_router
-# from routes.horarios import horarios
+from routes.horarios import horarios_router
 # from routes.bitacora import bitacora
 # from routes.dispensaciones import dispensacion
 # from routes.estudios import estudios
@@ -49,11 +49,14 @@ from routes.departamentos import departamentos
 # from routes.lotes import lote
 # from routes.medicamentos import medicamento
 # from routes.personal_medico import personal_medico
-# from routes.puestos import puesto
+from routes.puestos import puestos_router
 # from routes.puestos_departamentos import puesto_departamento
 # from routes.solicitudes import request
 # from routes.tbb_aprobaciones import tbb_aprobaciones
 # from routes.tbc_organos import tbc_organos
+from routes.especialidades import especialidades_router
+from routes.personal import personal_router
+
 
 # 🔹 INCLUIR RUTAS ACTIVAS
 app.include_router(users_router)
@@ -67,6 +70,13 @@ app.include_router(area_medica)
 app.include_router(rol)
 app.include_router(userrol)
 app.include_router(departamentos)
+app.include_router(puestos_router)
+app.include_router(horarios_router)
+app.include_router(especialidades_router)
+app.include_router(personal_router)
+
+
+
 
 # 🔹 CREAR LAS TABLAS **DESPUÉS DE REGISTRAR LAS RUTAS**
 print("🔄 Creando las tablas en MySQL si no existen...")
